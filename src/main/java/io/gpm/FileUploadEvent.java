@@ -46,6 +46,21 @@ public class FileUploadEvent {
             log.info(Level.FINE + "File {0} is attempting to upload to {1}", new Object[]{fileName, path});
         } catch (FileNotFoundException e){
             log.info(Level.SEVERE + "Exception caught: " + e);
+            writer.print("Something went wrong. Either the file uploaded \n" +
+                    "is protected, nonexistent or the location is not the one specified");
+        } finally {
+            if(out != null){
+                out.close();
+                log.info(Level.WARNING + " Output stream has been closed!");
+            }
+            if(in != null){
+                in.close();
+                log.info(Level.WARNING + " Input stream has been closed!");
+            }
+            if(writer != null){
+                writer.close();
+                log.info(Level.WARNING + " Writer has been closed!");
+            }
         }
 
     }
