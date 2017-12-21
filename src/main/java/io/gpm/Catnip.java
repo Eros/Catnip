@@ -71,6 +71,7 @@ public class Catnip {
 
         while(!client.isDone()){
             //this is where we do shit
+
         }
         if(client.isDone()) {
             client.stop();
