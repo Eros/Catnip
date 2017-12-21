@@ -24,7 +24,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Catnip {
 
     //general bollocks for twitter
+    @Getter
     public static final int TPS_STREAM_LENGTH = 1000;
+    @Getter
+    public static ClientBuilder builder = null;
+    @Getter
+    public static Client client = null;
 
 
     public static void main(String... args){
@@ -44,17 +49,25 @@ public class Catnip {
                 io.gpm.Constants.C_CONSUMER_SECRET, io.gpm.Constants.C_TOKEN, io.gpm.Constants.C_SECRET);
 
         //client handling
-        ClientBuilder builder = new ClientBuilder()
-                .name("catnip-twitter-system")
-                .hosts(host)
-                .authentication(auth)
-                .endpoint(endpoint)
-                .processor(new StringDelimitedProcessor(messageQueue))
-                .eventMessageQueue(eventQueue);
+        if(builder == null) {
+            builder = new ClientBuilder()
+                    .name("catnip-twitter-system")
+                    .hosts(host)
+                    .authentication(auth)
+                    .endpoint(endpoint)
+                    .processor(new StringDelimitedProcessor(messageQueue))
+                    .eventMessageQueue(eventQueue);
 
-        Client client = builder.build();
+        } else {
+            System.out.println("Builder could not be built!");
+        }
+        if(client == null) {
+            client = builder.build();
 
-        client.connect();
+            client.connect();
+        } else {
+            System.out.println("Client could not be initialized or the builder couldn't be built!");
+        }
 
         while(!client.isDone()){
             //this is where we do shit
