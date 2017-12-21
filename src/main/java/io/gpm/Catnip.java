@@ -40,7 +40,8 @@ public class Catnip {
         List<String> terms = Lists.newArrayList("twitter", "cats", "cute cats");
 
         //authentication
-        Authentication auth = new OAuth1("consumerKey", "consumerSecret", "token", "secret");
+        Authentication auth = new OAuth1(io.gpm.Constants.C_CONSUMER_KEY,
+                io.gpm.Constants.C_CONSUMER_SECRET, io.gpm.Constants.C_TOKEN, io.gpm.Constants.C_SECRET);
 
         //client handling
         ClientBuilder builder = new ClientBuilder()
