@@ -42,7 +42,8 @@ public class FileUploadEvent {
             while((read = in.read(bytes)) != -1){
                 out.write(bytes, 0, read);
             }
-
+            writer.println("New file has been uploaded with the name : " + fileName + " in directory : " + path);
+            log.info(Level.FINE + "File {0} is attempting to upload to {1}", new Object[]{fileName, path});
         } catch (FileNotFoundException e){
             log.info(Level.SEVERE + "Exception caught: " + e);
         }
