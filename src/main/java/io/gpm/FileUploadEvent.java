@@ -20,7 +20,9 @@ public class FileUploadEvent {
 
     protected static void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        response.setContentType("");//todo replace with image
+
+        String contentType[] = {"jpg", "png", "gif", "bmp"};//half of this isn't used but still
+        response.setContentType(contentType.toString());//this somehow requires to string when it is one, probably because it's a fucking array
 
         //general setting up shit
         final String path = ""; //replace with the path
