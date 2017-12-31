@@ -1,10 +1,9 @@
 package io.gpm;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.UploadedMedia;
+import twitter4j.*;
 
 import java.io.File;
+import java.util.Arrays;
 
 /***
  * @author George
@@ -30,9 +29,17 @@ public class SendTweetedImage {
                 + "Height: " + media.getImageHeight()
                 + "Size: " + media.getSize()
                 + "Format: " + media.getSize());
-
+                mediaID[i-1] = media.getMediaId();
             }
+
+            StatusUpdate update = new StatusUpdate(args[0]);
+            update.setMediaIds(mediaID);
+            System.out.println("Added status update with the media ID: " + Arrays.toString(mediaID));
+
+            Status status = twitter.updateStatus(update);
+            System.out.println("Successfully updated the status: " + status.getId() + " to: " + status.getText());
         } catch (TwitterException e) {
+            System.out.println("Status update failed: " + e);
             e.printStackTrace();
         }
     }
