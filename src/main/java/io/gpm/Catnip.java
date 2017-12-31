@@ -95,6 +95,14 @@ public class Catnip {
                 try {
                     if(pin.length() > 0){
                         access = twitter.getOAuthAccessToken(token, pin);
+                    } else {
+                        access = twitter.getOAuthAccessToken(token);
+                    }
+                } catch (TwitterException e) {
+                    if(401 == e.getStatusCode()){
+                        System.out.println("Was unable to find the access token!");
+                    } else {
+                        e.printStackTrace();
                     }
                 }
             }
