@@ -139,7 +139,7 @@ public class Catnip {
         }
     }
 
-    private void handleChecks(){
+    private void handle(){
         twitter.onRateLimitReached(e -> System.out.println("Rate limit remaining: " + e.getRateLimitStatus().getRemaining()
          + "/" + e.getRateLimitStatus().getLimit()));
     }
