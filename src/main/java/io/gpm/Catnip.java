@@ -2,6 +2,8 @@ package io.gpm;
 
 
 import twitter4j.*;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 
 import java.io.*;
 import java.util.Properties;
@@ -43,6 +45,36 @@ public class Catnip {
                 out = new FileOutputStream("twitter4j.properties");
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(in != null){
+                try {
+                    in.close();
+                    System.out.println("Input stream has been closed!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(out != null){
+                try {
+                    out.close();
+                    System.out.print("Output stream has been closed!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        try {
+            Twitter twitter = new TwitterFactory().getInstance();
+            RequestToken token = twitter.getOAuthRequestToken();
+            System.out.println("Request token has been verified");
+            System.out.println("Request token is: " + token.getToken());
+            System.out.println("Request secret is: " + token.getTokenSecret());
+
+            AccessToken access = null;
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        } catch (TwitterException e) {
             e.printStackTrace();
         }
     }
