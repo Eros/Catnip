@@ -37,6 +37,10 @@ public class Catnip {
                 if(null == p.getProperty("outh.consumerKey") && null == p.getProperty("outh.consumerSecret")){
                     System.out.println("Consumer key and consumer secret have not been set!");
                 }
+            } else {
+                p.setProperty("oauth.consumerKey", args[0]);
+                p.setProperty("oauth.consumerSecret", args[1]);
+                out = new FileOutputStream("twitter4j.properties");
             }
         } catch (IOException e) {
             e.printStackTrace();
