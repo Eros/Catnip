@@ -78,7 +78,7 @@ public class Catnip {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-            while(access == null){
+            while (access == null) {
                 System.out.println("Use the following url to grant access: " + token.getAuthorizationURL());
 
                 try {
@@ -93,16 +93,34 @@ public class Catnip {
                 String pin = reader.readLine();
 
                 try {
-                    if(pin.length() > 0){
+                    if (pin.length() > 0) {
                         access = twitter.getOAuthAccessToken(token, pin);
                     } else {
                         access = twitter.getOAuthAccessToken(token);
                     }
                 } catch (TwitterException e) {
-                    if(401 == e.getStatusCode()){
+                    if (401 == e.getStatusCode()) {
                         System.out.println("Was unable to find the access token!");
                     } else {
                         e.printStackTrace();
+                    }
+                }
+            }
+            try {
+                p.setProperty("oauth.accessToken", access.getToken());
+                p.setProperty("oauth.accessTokenSecret", access.getTokenSecret());
+                out = new FileOutputStream(file);
+                p.store(out, "twitter4j.properties");
+                out.close();
+            } catch (Exception i){
+                i.printStackTrace();
+            } finally {
+                if(out != null){
+                    try {
+                        out.close();
+                        System.out.println("Output stream has been closed!");
+                    } catch (IOException i){
+                        i.printStackTrace();
                     }
                 }
             }
