@@ -1,5 +1,8 @@
 package io.gpm;
 
+import lombok.Generated;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +20,12 @@ import java.util.logging.Level;
 public class FileUploadEvent {
 
     private static final Logger log = LoggerFactory.getLogger("[Catnip-Log] ");
-
+    
     protected static void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
         String contentType[] = {"jpg", "png", "gif", "bmp"};//half of this isn't used but still
-        response.setContentType(contentType.toString());//this somehow requires to string when it is one, probably because it's a fucking array
+        response.setContentType(contentType.toString());
 
         //general setting up shit
         final String path = ""; //replace with the path
