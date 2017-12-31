@@ -5,7 +5,10 @@ import twitter4j.*;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
+import java.awt.*;
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 /***
@@ -74,7 +77,30 @@ public class Catnip {
             AccessToken access = null;
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+            while(access == null){
+                System.out.println("Use the following url to grant access: " + token.getAuthorizationURL());
+
+                try {
+                    //noinspection Since15
+                    Desktop.getDesktop().browse(new URI(token.getAuthorizationURL()));
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Enter any valid pins: ");
+                String pin = reader.readLine();
+
+                try {
+                    if(pin.length() > 0){
+                        access = twitter.getOAuthAccessToken(token, pin);
+                    }
+                }
+            }
         } catch (TwitterException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
