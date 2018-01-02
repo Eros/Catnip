@@ -7,6 +7,7 @@ import twitter4j.conf.Configuration;
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -116,5 +117,11 @@ abstract class AbstractImageUploadImpl implements ImageUpload {
         System.arraycopy(source, 0, ret, 0, srcLength);
         System.arraycopy(destination, 0, ret, srcLength, dstLength);
         return ret;
+    }
+
+    String generateVerifhCredentialsAuthorizationHeader(){
+        List<HttpParameter> oauthSignaturePerms = auth.generateOAuthSignatureHttpParams("GET",
+                AbstractImageUploadImpl.TWITTER_VERIFY_CREDENTIALS_JSON);
+        return "OAuth realm=\"https://api.twitter.com/\"," + OAuthAuthorization.encodeParameters(oauthSignaturePerms, ",", true);
     }
 }
