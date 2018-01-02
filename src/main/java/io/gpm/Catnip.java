@@ -42,7 +42,7 @@ public class Catnip {
             }
 
             if (args.length < 2) {
-                if (null == p.getProperty("outh.consumerKey") && null == p.getProperty("outh.consumerSecret")) {
+                if (null == p.getProperty("oauth.consumerKey") && null == p.getProperty("outh.consumerSecret")) {
                     System.out.println("Consumer key and consumer secret have not been set!");
                 }
             } else {
