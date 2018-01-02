@@ -6,10 +6,7 @@ import twitter4j.conf.Configuration;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /***
  * @author George
@@ -119,9 +116,49 @@ abstract class AbstractImageUploadImpl implements ImageUpload {
         return ret;
     }
 
-    String generateVerifhCredentialsAuthorizationHeader(){
+    String generateVerifyCredentialsAuthorizationHeader(){
         List<HttpParameter> oauthSignaturePerms = auth.generateOAuthSignatureHttpParams("GET",
                 AbstractImageUploadImpl.TWITTER_VERIFY_CREDENTIALS_JSON);
         return "OAuth realm=\"https://api.twitter.com/\"," + OAuthAuthorization.encodeParameters(oauthSignaturePerms, ",", true);
+    }
+
+    protected String geneateVerifyCredentialsAuthorizationURL(String verifyCredentials){
+        List<HttpParameter> oauthSignatureParams = auth.generateOAuthSignatureHttpParams("GET", verifyCredentials);
+        return verifyCredentials + "?" + OAuthAuthorization.encodeParameters(oauthSignatureParams);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o)
+            return true;
+        if(o == null || getClass() != o.getClass())
+            return false;
+
+        AbstractImageUploadImpl t = (AbstractImageUploadImpl) o;
+
+        if(apiKey != null ? !apiKey.equals(t.apiKey) : t.apiKey != null)
+            return false;
+        if(!Arrays.equals(appendParameter, t.appendParameter))
+            return false;
+        if(client != null ? !client.equals(t.client) : t.client != null)
+            return false;
+        if(config != null ? !config.equals(t.config) : t.config != null)
+            return false;
+        if(headers != null ? !headers.equals(t.headers) : t.headers != null)
+            return false;
+        if(response != null ? !response.equals(t.response) : t.response != null)
+            return false;
+        if(image != null ? !image.equals(t.image) : t.image != null)
+            return false;
+        if(message != null ? !message.equals(t.message) : t.message != null)
+            return false;
+        if(auth != null ? !auth.equals(t.auth) : t.auth != null)
+            return false;
+        if(!Arrays.equals(postParameter, t.postParameter))
+            return false;
+        if(uploadUrl != null ? !uploadUrl.equals(t.uploadUrl) : t.uploadUrl != null)
+            return false;
+
+        return true;
     }
 }
