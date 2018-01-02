@@ -42,4 +42,24 @@ public class TwitterUpload implements ImageUpload {
     public String upload(String fileName, InputStream imageBody, String message) throws TwitterException {
         return twitter.updateStatus(new StatusUpdate(message).media(fileName, imageBody)).getText();
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o)
+            return true;
+        if(o == null || getClass() != o.getClass())
+            return false;
+
+        TwitterUpload t = (TwitterUpload) o;
+
+        if(twitter != null ? !twitter.equals(t.twitter) : t.twitter != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode(){
+        return twitter != null ? twitter.hashCode() : 0;
+    }
 }
