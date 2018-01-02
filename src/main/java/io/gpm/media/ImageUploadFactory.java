@@ -23,11 +23,13 @@ public class ImageUploadFactory {
     public ImageUploadFactory(Configuration config){
         String mediaProvider = config.getMediaProvider().toLowerCase();
         if("twitter".equals(mediaProvider)){
-            //todo default
+            mediaProvider = String.valueOf(MediaProvider.valueOf("TWITTER"));
         } else if("imgly".equals(mediaProvider) || "img_ly".equals(mediaProvider)){
-            //todo default
+            mediaProvider = String.valueOf(MediaProvider.valueOf("IMG_LY"));
         } else if("twipple".equals(mediaProvider)){
-            //todo default
+            mediaProvider = String.valueOf(MediaProvider.valueOf("TWIPPLE"));
+        } else if("mobypicture".equals(mediaProvider)) {
+            mediaProvider = String.valueOf(MediaProvider.valueOf("MOBYPICTURE"));
         } else {
             throw new IllegalArgumentException("Unsupported media!!");
         }
