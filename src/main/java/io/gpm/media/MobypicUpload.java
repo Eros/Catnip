@@ -1,7 +1,6 @@
 package io.gpm.media;
 
-import twitter4j.HttpParameter;
-import twitter4j.TwitterException;
+import twitter4j.*;
 import twitter4j.auth.OAuthAuthorization;
 import twitter4j.conf.Configuration;
 
@@ -44,6 +43,20 @@ public class MobypicUpload extends AbstractImageUploadImpl{
 
     @Override
     protected String postUpload() throws TwitterException {
+        int status = response.getStatusCode();
+        if(status != 200)
+            throw new TwitterException("Uploading to Mobypic has failed");
+
+        String str = response.asString();
+
+        try {
+            JSONObject json = new JSONObject(response);
+            if(!json.isNull("media")){
+                return json.getJSONObject("media").getString("mediaurl");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
