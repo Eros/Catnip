@@ -161,4 +161,21 @@ abstract class AbstractImageUploadImpl implements ImageUpload {
 
         return true;
     }
+
+    @Override
+    public int hashCode(){
+        int result = client != null ? client.hashCode() : 0;
+        result = 31 * result + (config != null ? config.hashCode() : 0);
+        result = 31 * result + (apiKey != null ? apiKey.hashCode() : 0);
+        result = 31 * result + (auth != null ? auth.hashCode() : 0);
+        result = 31 * result + (uploadUrl != null ? uploadUrl.hashCode() : 0);
+        result = 31 * result + (postParameter != null ? Arrays.hashCode(postParameter) : 0);
+        result = 31 * result + (appendParameter != null ? Arrays.hashCode(appendParameter) : 0);
+        result = 31 * result + (image != null ? image.hashCode() : 0);
+        result = 31 * result + (message != null ? message.hashCode() : 0);
+        result = 31 * result + (headers != null ? headers.hashCode() : 0);
+        result = 31 * result + (response != null ? response.hashCode() : 0);
+
+        return result;
+    }
 }
