@@ -1,5 +1,6 @@
 package io.gpm.media;
 
+import lombok.Getter;
 import twitter4j.*;
 import twitter4j.auth.OAuthAuthorization;
 import twitter4j.conf.Configuration;
@@ -14,18 +15,27 @@ import java.util.*;
  */
 abstract class AbstractImageUploadImpl implements ImageUpload {
 
+    @Getter
     static final String TWITTER_VERIFY_CREDENTIALS_JSON = "https://api.twitter.com/1.1/account/verify_credentials.json";
 
     private HttpClient client;
     private Configuration config = null;
+    @Getter
     protected String apiKey = null;
+    @Getter
     OAuthAuthorization auth = null;
+    @Getter
     String uploadUrl = null;
+    @Getter
     HttpParameter[] postParameter= null;
     private HttpParameter[] appendParameter = null;
+    @Getter
     HttpParameter image = null;
+    @Getter
     HttpParameter message = null;
+    @Getter
     final Map<String, String> headers = new HashMap<String, String>();
+    @Getter
     HttpResponse response = null;
     private static final Logger logger = Logger.getLogger(AbstractImageUploadImpl.class);
 
