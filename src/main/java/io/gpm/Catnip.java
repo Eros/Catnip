@@ -1,10 +1,12 @@
 package io.gpm;
 
 
+import io.gpm.media.TwitterUpload;
 import lombok.Getter;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
+import twitter4j.conf.Configuration;
 
 import java.awt.*;
 import java.io.*;
@@ -23,6 +25,7 @@ public class Catnip {
 
     public static void main(String... args) {
         User user = null;
+        Configuration config = null;
         try {
             user = twitter.verifyCredentials();
         } catch (TwitterException e) {
@@ -127,6 +130,11 @@ public class Catnip {
             }
         } catch (TwitterException | IOException e) {
             e.printStackTrace();
+        }
+
+        if(config == null) {
+            config = twitter.getConfiguration();
+
         }
     }
 

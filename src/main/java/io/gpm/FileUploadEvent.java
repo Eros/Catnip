@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
+import java.util.Objects;
 import java.util.logging.Level;
 
 /***
@@ -25,8 +26,10 @@ public class FileUploadEvent {
             throws IOException, ServletException {
 
         String contentType[] = {"jpg", "png", "gif", "bmp"};//half of this isn't used but still
-        response.setContentType(contentType.toString());
-
+        for(String s : contentType.clone()) {
+            if(Objects.equals(request.getContentType(), s))
+            response.setContentType(s);
+        }
         //general setting up shit
         final String path = ""; //replace with the path
         final Part filePart = request.getPart("file");
