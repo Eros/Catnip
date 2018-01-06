@@ -4,7 +4,9 @@ import lombok.Getter;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import twitter4j.HttpClientConfiguration;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,5 +27,9 @@ public class OkHttpResponse {
 
     OkHttpResponse(){
         super();
+    }
+
+    public OkHttpResponse(Call call, OkHttpClient client, HttpClientConfiguration configuration) throws IOException {
+
     }
 }
